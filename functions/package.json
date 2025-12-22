@@ -1,0 +1,28 @@
+{
+  "name": "copilot-analytics-functions",
+  "version": "1.0.0",
+  "description": "M365 Copilot and Copilot Studio data ingestion for Fabric",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.1",
+    "@azure/identity": "^4.4.1",
+    "@azure/storage-blob": "^12.24.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "cross-fetch": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.3",
+    "azure-functions-core-tools": "^4.0.5530"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+.env
+local.settings.json
+deploy.zip
+.DS_Store
+.vscode/
