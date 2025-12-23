@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "STORAGE_ACCOUNT_NAME": "devstoreaccount1",
+    "RAW_CONTAINER": "raw",
+    "HASH_SALT": "local-development-salt-change-in-production",
+    "COPILOT_SKU_IDS": "your-sku-id-here",
+    "AZURE_OPENAI_ENDPOINT": "https://your-openai-resource.openai.azure.com/",
+    "AZURE_OPENAI_KEY": "your-key-here",
+    "ALLOWED_ADMIN_GROUP_ID": "your-group-id-here",
+    "NODE_ENV": "development"
+  }
+}

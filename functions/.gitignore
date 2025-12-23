@@ -4,3 +4,6 @@ dist/
 .env
 local.settings.json
 deploy.zip
+sample-data/
+azurite-data/
+azurite-debug.log

@@ -52,6 +52,22 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
       }
     }
   }
+
+  resource tableService 'tableServices' = {
+    name: 'default'
+
+    resource systemConfigTable 'tables' = {
+      name: 'SystemConfig'
+    }
+
+    resource kpiDefinitionTable 'tables' = {
+      name: 'KpiDefinition'
+    }
+
+    resource businessProcessTable 'tables' = {
+      name: 'BusinessProcess'
+    }
+  }
 }
 
 // Storage Lifecycle Management (14日TTL)
@@ -192,9 +208,20 @@ resource functionApp 'Microsoft.Web/sites@2023-01-01' = {
           name: 'AZURE_OPENAI_KEY'
           value: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}${az.environment().suffixes.keyvaultDns}/secrets/azure-openai-key)'
         }
+        {
+          name: 'ALLOWED_ADMIN_GROUP_ID'
+          value: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}${az.environment().suffixes.keyvaultDns}/secrets/allowed-admin-group-id)'
+        }
       ]
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
+      cors: {
+        allowedOrigins: [
+          'https://swa-${prefix}-${environment}.azurestaticapps.net'
+          'http://localhost:5173' // PoC: ローカル開発
+        ]
+        supportCredentials: true
+      }
     }
   }
 }
@@ -221,6 +248,36 @@ resource storageBlobContributorRole 'Microsoft.Authorization/roleAssignments@202
   }
 }
 
+// Static Web App
+resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
+  name: 'swa-${prefix}-${environment}'
+  location: 'eastasia' // Static Web Apps: East Asia が最寄り
+  sku: {
+    name: 'Free' // PoC: Free、本番: Standard
+    tier: 'Free'
+  }
+  properties: {
+    repositoryUrl: '' // GitHub Actions で設定
+    branch: ''
+    buildProperties: {
+      appLocation: '/admin-portal'
+      apiLocation: ''
+      outputLocation: 'build'
+    }
+    provider: 'Custom' // GitHub Actions 使用
+  }
+
+  resource config 'config' = {
+    name: 'appsettings'
+    properties: {
+      FUNCTION_API_URL: 'https://${functionApp.properties.defaultHostName}'
+    }
+  }
+}
+
+// Static Web App に Entra ID 認証を構成 (手動構成が必要)
+// Azure Portal → Static Web App → Authentication → Entra ID プロバイダー追加
+
 // Outputs
 output storageAccountName string = storage.name
 output storageAccountId string = storage.id
@@ -229,3 +286,5 @@ output keyVaultId string = keyVault.id
 output functionAppName string = functionApp.name
 output functionAppPrincipalId string = functionApp.identity.principalId
 output appInsightsInstrumentationKey string = appInsights.properties.InstrumentationKey
+output staticWebAppName string = staticWebApp.name
+output staticWebAppUrl string = staticWebApp.properties.defaultHostname
