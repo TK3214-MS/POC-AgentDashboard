@@ -58,40 +58,6 @@ async function getConfig(req: HttpRequest, context: InvocationContext): Promise<
 }
 
 /**
- * POST /api/config - 設定作成
- */
-async function createConfig(req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-  try {
-    const userInfo = await validateAdminAccess(req);
-    
-    const body = await req.json() as Partial<SystemConfigEntity>;
-    const client = tableService.getClient("SystemConfig");
-    
-    const entity: SystemConfigEntity = {
-      partitionKey: "config",
-      rowKey: body.rowKey!,
-      value: body.value!,
-      description: body.description,
-      updatedBy: userInfo.email,
-      updatedAt: new Date(),
-    };
-    
-    await client.createEntity(entity);
-    
-    return {
-      status: 201,
-      jsonBody: entity,
-    };
-  } catch (error) {
-    context.error("[createConfig] Error:", error);
-    return {
-      status: error.message === "Unauthorized" ? 403 : 400,
-      jsonBody: { error: error.message },
-    };
-  }
-}
-
-/**
  * PUT /api/config/{key} - 設定更新
  */
 async function updateConfig(req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
@@ -164,13 +130,6 @@ app.http("getConfig", {
   authLevel: "function",
   route: "config/{key}",
   handler: getConfig,
-});
-
-app.http("createConfig", {
-  methods: ["POST"],
-  authLevel: "function",
-  route: "config",
-  handler: createConfig,
 });
 
 app.http("updateConfig", {

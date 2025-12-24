@@ -168,9 +168,14 @@ FUNCTION_API_URL = https://<func-name>.azurewebsites.net
 2. **Entra ID でサインイン**
 3. **サイドバー → 管理設定**
 4. **設定項目を編集**:
-   - スケジュール設定（CRON形式）
-   - データ保持期間
-   - 機能有効化フラグ
+   - **スケジュール設定**: CRON形式ではなく「毎日」「週1回」「月1回」等のプリセットから選択
+     - 毎日 (18:00)
+     - 毎日 (9:00)
+     - 週1回 (月曜 9:00)
+     - 月1回 (1日 9:00)
+     - カスタム（任意の時刻指定）
+   - **データ保持期間**: 日数指定（1-365日）
+   - **機能有効化フラグ**: ドロップダウンで有効/無効を選択
 
 ### KPI管理画面
 
@@ -193,9 +198,7 @@ FUNCTION_API_URL = https://<func-name>.azurewebsites.net
 
 - `GET /api/config` - 全設定取得
 - `GET /api/config/{key}` - 特定設定取得
-- `POST /api/config` - 設定作成
-- `PUT /api/config/{key}` - 設定更新
-- `DELETE /api/config/{key}` - 設定削除
+- `PUT /api/config/{key}` - 設定更新（定義済み設定のみ編集可能）
 
 ### KPI定義
 
