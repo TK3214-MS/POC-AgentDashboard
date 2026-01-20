@@ -1,5 +1,7 @@
 # テスト戦略と運用 Runbook
 
+**日本語** | [English](testing-and-runbook.en.md)
+
 ## 1. テスト戦略
 
 ### 1.1 ユニットテスト

@@ -1,5 +1,7 @@
 # ローカル開発クイックスタート
 
+**日本語** | [English](LOCAL_DEVELOPMENT.en.md)
+
 ## 1. 前提条件インストール
 
 ```powershell

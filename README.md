@@ -1,5 +1,7 @@
 # M365 Copilot Analytics PoC
 
+**日本語** | [English](README.en.md)
+
 Microsoft Fabric を中心とした Copilot 利用データ分析基盤。M365 Copilot と Copilot Studio のデータを同一スキーマに正規化し、シナリオ分類・Assisted hours 算出を行い、Power BI で週次可視化します。
 
 ## 特徴

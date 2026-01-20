@@ -1,5 +1,7 @@
 # アーキテクチャ設計
 
+**日本語** | [English](architecture.en.md)
+
 ## 1. 全体像
 
 **Microsoft Fabric 中心 + 最小 Azure 構成**による Copilot 分析基盤。M365 Copilot と Copilot Studio の利用データを同一スキーマに正規化し、週次で Power BI 可視化する。

@@ -1,5 +1,7 @@
 # Lakehouse 設計
 
+**日本語** | [English](lakehouse-design.en.md)
+
 ## 1. フォルダ構造 (Storage Account: Japan East)
 
 ### 1.1 Azure Storage `raw` コンテナ
